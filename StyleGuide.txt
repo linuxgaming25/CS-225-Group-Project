@@ -1,0 +1,83 @@
+C++ Style Guide for Adventure Game Project
+
+File Structure
+
+Headers and Implementation Separation:
+Each class has a corresponding .h and .cpp file.
+.h files contain class declarations and function prototypes.
+.cpp files contain function implementations.
+Consistent Naming Conventions:
+Header files use #ifndef guards to prevent multiple inclusions (e.g., #ifndef ADVENTUREGAME_H).
+Use clear and descriptive file names (e.g., AdventureGame.cpp, BookcaseWall.h).
+Class Design
+
+Inheritance and Polymorphism:
+Base class Wall is abstract and contains common functionality (e.g., inspect(), useItem()).
+Derived classes (e.g., DeskWall, BookcaseWall, DoorWall) implement specific behaviors, such as showAsciiArt().
+Use of unique_ptr:
+unique_ptr is used for wall objects (e.g., wall1, wall2, wall3, wall4) to manage dynamic memory automatically.
+Custom make_unique() function defined for C++11 compatibility.
+Function Naming and Purpose
+
+Member Functions:
+Use clear and concise names that describe the action being performed (e.g., start(), displayRoom(), openLobby()).
+Functions are grouped based on their responsibility (e.g., game logic vs. inventory handling).
+Action Methods:
+Game actions (e.g., start(), displayRoom(), showCurrentWall()) are self-explanatory.
+Inventory-related functions (e.g., addItem(), hasItem(), saveToFile()) follow the same pattern.
+Getters and Setters:
+Functions like getTimeRemaining() are used to access private data (e.g., startTime).
+Variables
+
+Descriptive Names:
+Use meaningful variable names (e.g., currentWall, gameOver, inventory).
+Avoid single-character names except for loop counters (e.g., i, j).
+Initialization:
+Variables should be initialized at declaration or in the constructor (e.g., currentWall(0)).
+Boolean Flags:
+Use descriptive flags for boolean values (e.g., gameOver, ready).
+Error Handling
+
+Exception Handling:
+try-catch blocks are used to handle invalid actions (e.g., throw invalid_argument("Invalid action.") in start()).
+Input and Output
+
+Standard Input and Output:
+Use cout for output messages and cin for input (e.g., cin >> action).
+Provide clear instructions and feedback to the player, ensuring user-friendly interaction (e.g., "Invalid input. Please enter 'yes' or 'no'").
+ASCII Art and Visual Representation
+
+ASCII Art for Walls:
+Each wall type has its own showAsciiArt() method to display ASCII representations (e.g., in DeskWall, BookcaseWall).
+Time Management
+
+Time Tracking:
+Use chrono library to track game time (e.g., startTime, getTimeRemaining()).
+Ensure clear communication of remaining time to the player (e.g., "TIME IS 2 MINUTES | YOU HAVE 3 MINUTES TO LEAVE THE OFFICE").
+File Handling
+
+Save and Load Game State:
+saveGame() and loadGame() handle saving and loading the inventory to/from a file (inventory.txt).
+Proper file handling with ifstream and ofstream.
+Comments and Documentation
+
+Commenting:
+Use comments to explain complex logic or important sections of code (e.g., constructor in AdventureGame, class descriptions in header files).
+Avoid redundant comments—code should be self-explanatory.
+Function Documentation:
+Each function has a clear description of its purpose and behavior (e.g., openLobby(), inspect()).
+Best Practices
+
+Encapsulation:
+Data members should be private, and access should be controlled through functions (e.g., Wall::description, Inventory::items).
+Code Readability:
+Maintain consistent indentation and formatting for clarity.
+Group related code together (e.g., related member functions, logic blocks).
+Reuse and Modularity:
+Break down large tasks into smaller, reusable functions (e.g., inspect(), useItem() in Wall class).
+Leverage inheritance and polymorphism to extend functionality easily (e.g., showAsciiArt() in derived Wall classes).
+
+
+
+
+
