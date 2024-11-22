@@ -1,14 +1,18 @@
-#include "Wall.h"
-#include "Inventory.h"
-#include <iostream>
+#include "Wall.h"    // Include the header file for Wall class
+#include <iostream>  // For console input/output
 
 using namespace std;
 
-// Wall class constructor
+// Constructor initializes the Wall object with given description, item found, door status, and required key
 Wall::Wall(const string& desc, const string& itemFound, bool door, const string& key)
     : description(desc), item(itemFound), isDoor(door), isOpen(false), requiredKey(key) {}
 
-// Inspect the wall and show description and item if available
+// Destructor for the Wall class (empty here but useful for cleanup in derived classes)
+Wall::~Wall() {
+    // Placeholder for dynamic resource cleanup if needed in the future
+}
+
+// Inspect the wall and display its description; informs if an item is present
 void Wall::inspect() {
     cout << description << endl;
     if (!item.empty()) {
@@ -16,10 +20,10 @@ void Wall::inspect() {
     }
 }
 
-// Use an item on the wall for doors that need a key to unlock
+// Allows a player to interact with the wall; checks if the door can be unlocked with the correct key
 void Wall::useItem(Inventory& inv) {
-    if (isDoor && !isOpen) {
-        if (inv.hasItem(requiredKey)) {
+    if (isDoor && !isOpen) { // Check if it's a door and currently locked
+        if (inv.hasItem(requiredKey)) { // Check if the inventory contains the required key
             isOpen = true;
             cout << "You unlocked the door and it's now open!\n";
         } else {
@@ -28,79 +32,10 @@ void Wall::useItem(Inventory& inv) {
     }
 }
 
-// Display ASCII art based on the wall name
-void Wall::showAsciiArt(const string& wallName) const {
-    if (wallName == "wall1") {
-        cout << "Desk with Key:\n";
-        cout << "  _______________ \n";
-        cout << "  _______________ \n";
-        cout << "  _______________ \n";
-        cout << "  _______________ \n";
-        cout << "  _________|===|_ \n";
-        cout << "  __O=F____|___|_ \n";
-        cout << " |         |   | | \n";
-        cout << " |         |===| | \n";
-        cout << " |         |   | | \n";
-        cout << " ----------|---|- \n";
-    }
-    else if (wallName == "wall2") {
-        cout << "Bookshelf with Key:\n";
-        cout << "  _______________ \n";
-        cout << " |              | \n";
-        cout << " |__O=F_________| \n";
-        cout << " |--------------| \n";
-        cout << " |              | \n";
-        cout << " |--------------| \n";
-        cout << " |--------------| \n";
-        cout << " |              | \n";
-        cout << " |--------------| \n";
-        cout << " |--------------| \n";
-        cout << " |              | \n";
-        cout << " |--------------| \n";
-        cout << " |--------------| \n";
-    }
-    else if (wallName == "wall3") {
-        cout << "Two Doors:\n";
-        cout << "  _______________ \n";
-        cout << " |  Two Doors   | \n";
-        cout << " |              | \n";
-        cout << " |_____    _____| \n";
-        cout << " ||   |    |   || \n";
-        cout << " ||   |    |   || \n";
-        cout << " ||   |    |   || \n";
-        cout << " ||   |    |   || \n";
-        cout << " ||  O|    |  O|| \n";
-        cout << " ||   |    |   || \n";
-        cout << " ||   |    |   || \n";
-        cout << " ||   |    |   || \n";
-        cout << " --------------- \n";
-    }
-    else if (wallName == "wall4") {
-        cout << "Window with Sunset:\n";
-        cout << "  _______________ \n";
-        cout << " |              | \n";
-        cout << " | ____________ | \n";
-        cout << " | |          | | \n";
-        cout << " | |    ~     | | \n";
-        cout << " | |  ~ - ~   | | \n";
-        cout << " | |~ -+++- ~ | | \n";
-        cout << " | |_-++*++-__| | \n";
-        cout << " | |----------| | \n";
-        cout << " | |__________| | \n";
-        cout << " |              | \n";
-        cout << " |              | \n";
-        cout << " |              | \n";
-        cout << " --------------- \n";
-    }
-    else {
-        cout << "No ASCII art available for this wall.\n";
-    }
-}
-
-// Overload the ostream operator to print the wall's description
+// Overload the stream insertion operator to print Wall details
 ostream& operator<<(ostream& os, const Wall& wall) {
-    os << "Description: " << wall.description << endl;
-    if (!wall.item.empty()) {
+    os << "Description: " << wall.description << endl; // Print wall description
+    if (!wall.item.empty()) { // Print the item if it exists
         os << "You find a " << wall.item << " on this wall.\n";
     }
     return os;
